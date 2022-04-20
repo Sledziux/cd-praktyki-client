@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const CheckboxList = ({ values, setInitialState, query }) => {
   const [selectedValues, setSelectedValues] = useState([]);
 
   const onCheckboxStatusChange = (e, item) => {
-    console.log(e.target.checked);
     if (e.target.checked) {
       setSelectedValues((prev) => {
         return [...prev, item];
@@ -30,7 +29,7 @@ const CheckboxList = ({ values, setInitialState, query }) => {
   };
 
   return (
-    <div className="p-1">
+    <form className="p-1">
       {values.map((item, index) => {
         return (
           <div className="py-2" key={index}>
@@ -46,8 +45,8 @@ const CheckboxList = ({ values, setInitialState, query }) => {
           </div>
         );
       })}
-      <input placeholder="Inny? Podaj jaki" onClick={handleInputChange} />
-    </div>
+      <input placeholder="Inny? Podaj jaki" onBlurCapture={handleInputChange} />
+    </form>
   );
 };
 

@@ -1,20 +1,20 @@
-import React from 'react';
-import { useState } from 'react';
-import '../styles/App.css';
-import ContactForm from '../components/ContactForm';
-import Query from '../components/Query';
-import { queriesForOnlineShop, queriesForWebPage } from '../queries';
-import Axios from 'axios';
+import React from "react";
+import { useState } from "react";
+import "../styles/App.css";
+import ContactForm from "../components/ContactForm";
+import Query from "../components/Query";
+import { queriesForOnlineShop, queriesForWebPage } from "../queries";
+import Axios from "axios";
 
 function FormScreen() {
   const [type, setType] = useState(null);
   const [initialState, setInitialState] = useState({});
   const [contactFormData, setContactFormData] = useState({});
-
+  console.log(initialState);
   const createUser = () => {
-    Axios.post('http://localhost:3001/createForm', {
+    Axios.post("http://localhost:3001/createForm", {
       object: {
-        type: type === 'shop' ? 'Sklep internetowy' : 'Strona internetowa',
+        type: type === "shop" ? "Sklep internetowy" : "Strona internetowa",
         ...initialState,
         ...contactFormData,
       },
@@ -25,12 +25,13 @@ function FormScreen() {
   };
 
   const handleClickButtonConfirm = (e) => {
-    const objQueries = type === 'shop' ? queriesForOnlineShop : queriesForWebPage;
+    const objQueries =
+      type === "shop" ? queriesForOnlineShop : queriesForWebPage;
     if (Object.keys(initialState).length !== Object.keys(objQueries).length) {
-      alert('Uzupełnij wszystkie pola!');
+      alert("Uzupełnij wszystkie pola!");
       e.preventDefault();
     } else if (Object.keys(contactFormData).length !== 9) {
-      alert('Uzupełnij wszystkie formularza kontaktowego!');
+      alert("Uzupełnij wszystkie formularza kontaktowego!");
       e.preventDefault();
     } else {
       createUser();
@@ -45,26 +46,26 @@ function FormScreen() {
     <div className="App">
       <button
         className="button"
-        style={{ backgroundColor: type === 'shop' ? 'gray' : 'black' }}
-        onClick={() => handleClick('shop')}
+        style={{ backgroundColor: type === "shop" ? "gray" : "black" }}
+        onClick={() => handleClick("shop")}
       >
         Sklep internetowy
       </button>
       <button
         className="button"
-        style={{ backgroundColor: type === 'webpage' ? 'gray' : 'black' }}
-        onClick={() => handleClick('webpage')}
+        style={{ backgroundColor: type === "webpage" ? "gray" : "black" }}
+        onClick={() => handleClick("webpage")}
       >
         Strona internetowa
       </button>
-      {type === 'webpage' && (
+      {type === "webpage" && (
         <Form
           setInitialState={setInitialState}
           questions={queriesForWebPage}
           header="Strona Internetowa"
         />
       )}
-      {type === 'shop' && (
+      {type === "shop" && (
         <Form
           setInitialState={setInitialState}
           questions={queriesForOnlineShop}

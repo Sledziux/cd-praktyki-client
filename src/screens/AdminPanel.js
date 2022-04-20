@@ -1,6 +1,6 @@
-import Axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import Axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdminPanel() {
   const [login, setLogin] = useState();
@@ -27,13 +27,13 @@ function AdminPanel() {
 const LogIn = ({ setLogged, login, setLogin, setPassword, password }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (login === 'Admin' && password === 'Admin') {
+    if (login === "Admin" && password === "Admin") {
       setLogged(true);
     }
   };
 
   const handleChange = (e) => {
-    if (e.target.type === 'password') {
+    if (e.target.type === "password") {
       setPassword(e.target.value);
     } else {
       setLogin(e.target.value);
@@ -67,9 +67,8 @@ const Panel = () => {
   const navigate = useNavigate();
   const [forms, setForms] = useState([]);
   useEffect(() => {
-    Axios.get('http://localhost:3001/getForms').then((response) => {
+    Axios.get("http://localhost:3001/getForms").then((response) => {
       setForms(response.data);
-      console.log(response.data[2].object);
     });
   }, []);
 
@@ -95,8 +94,12 @@ const Panel = () => {
                 }}
               >
                 <th scope="row">{item._id}</th>
-                <td>{item.object.type === 'shop' ? 'Sklep internetowy' : 'Strona internetowa'}</td>
-                <td>{item.object['Imię i nazwisko']}</td>
+                <td>
+                  {item.object.type === "shop"
+                    ? "Sklep internetowy"
+                    : "Strona internetowa"}
+                </td>
+                <td>{item.object["Imię i nazwisko"]}</td>
                 <td>
                   {date.toLocaleDateString()} {date.toLocaleTimeString()}
                 </td>
